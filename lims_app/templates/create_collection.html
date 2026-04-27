@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+{% extends "index.html" %}
+{% load static %}
+
+{% block main_content %}
+
+<div class="container-flex text-center justify-content-center align-items-center" style="background-color: #E0F8F7; min-height: 30px; margin-left:15px;">
+    <div class="row align-middle" style="margin-top: 10px; height: 60px;">
+        <div class="col-md-4 text-center" style="background-color: #4B088A; color: white; border-radius: 5px;">
+            <h4 style="margin-top: 15px;margin-left:15px;">Register Borrowers Details</h4>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="container" style="overflow-y: auto; height: 600px; background: #CEECF5;">
+                <form method="POST" action="{% url 'borrowing_list_add' %}">
+                    {% csrf_token %}
+                    <table class="table" style="margin-top: 20px;">
+                        <tr>
+                            <td style="text-align: left; vertical-align: middle; padding-left: 15px;">Name: </td>
+                            <td><input type="text" class="form-control" name="name" required></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left; vertical-align: middle; padding-left: 15px;">Book: </td>
+                            <td><input type="text" class="form-control" name="book" required></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left; vertical-align: middle; padding-left: 15px;">Date Borrowed: </td>
+                            <td><input type="date" class="form-control" name="date_borrowed" required></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left; vertical-align: middle; padding-left: 15px;">Due Date: </td>
+                            <td><input type="date" class="form-control" name="due_date" required></td>
+                        </tr>
+                         <tr>
+                            <td style="text-align: left; vertical-align: middle; padding-left: 15px;">Status: </td>
+                            <td><input type="text" class="form-control" name="status" required></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><button class="btn btn-primary" type="submit">Save</button></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="row" style="margin-top: 10px;">
+                <div class="container" style="overflow-y:auto;height:300px">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Book</th>
+                                <th>Date Borrowed</th>
+                                <th>Due Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                         <tbody>
+                        {% for borrowing in borrowings %}
+                        <tr>
+                            <td>{{ borrowing.name }}</td>
+                            <td>{{ borrowing.book }}</td>
+                            <td>{{ borrowing.date_borrowed }}</td>
+                            <td>{{ borrowing.due_date }}</td>
+                            <td>{{ borrowing.status }}</td>
+                             <td> <form action="{% url 'delete_borrower' borrowing.id %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm"
+                        onclick="return confirm('Are you sure you want to delete this borrowing record?');">
+                        Delete
+                    </button>
+                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

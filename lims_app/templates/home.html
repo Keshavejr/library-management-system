@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% extends "index.html" %}
+{% load static %}
+
+{% block main_content%}
+<main role="main">
+
+<div class="jumbotron">
+  <div class="container">
+      <img src="{% static '/img big.png' %}" class="rounded float-start" alt="LIMS" height="100" style="margin-right:20px;">
+        <h1 class="display-4">Hello, Readers!</h1>
+      <p>Welcome to Library Archive, We have a large collection of books to enter the reading needs and for recording all kinds of books.</p>
+      <a href="{% url 'home' %}" class="btn btn-primary btn-lg shadow rounded-pill px-4">
+  </a>
+
+  </div>
+ </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <h2>Importance of Reading</h2>
+        <p> Reading is important because it exposes you to a wide range of new information, ideas, and perspectives that can broaden your understanding of the world. Whether it’s through books, articles, or stories, reading allows you to explore different cultures, viewpoints, and experiences. Additionally, regular reading plays a key role in improving your language skills. It introduces you to new vocabulary and helps you understand how words are used in context, which strengthens both your communication and writing abilities over time.</p>
+    </div>
+    <div class="col-sm">
+      <h2>Key benefits</h2>
+       <ul>
+
+           <li>Reading provides information on a wide range of topics.</li>
+           <li>Reading can calm the mind and reduce anxiety.</li>
+           <li>Understanding and analyzing content sharpens your thinking.</li>
+           <li>Reading develops curiosity and a habit of continuous learning.</li>
+
+       </ul>
+    </div>
+    <div class="col-sm">
+     <h2>Purpose of this Site</h2>
+        <p>The purpose of this website is to manage and organize book-related information in a structured and accessible way. By recording details such as the book name, author, publishing date, and due date, the website serves as a digital library or book tracking system</p>
+    </div>
+  </div>
+    <hr>
+</div>
+ </main>
+<footer class="container">
+    <p>@ Library Archives</p>
+
+</footer>
+{% endblock %}

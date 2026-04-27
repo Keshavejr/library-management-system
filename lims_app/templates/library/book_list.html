@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+{% extends "index.html" %}
+{% load static %}
+
+{% block main_content %}
+
+
+
+<div class="container" style="background-color: #E0F8F7; min-height: 30px; margin-left:15px;">
+   <div class="row align-items-center mb-3" style="margin-top: 10px; height: 60px;">
+    <div class="col-md-6">
+        <h4 style="margin-top: 5px;">Add a New Book</h4>
+    </div>
+    <div class="col-md-6 text-end">
+        <form class="d-flex justify-content-end" role="search" method="get">
+            <input class="form-control me-2" type="search" name="query" placeholder="Search for books" aria-label="Search" />
+            <button class="btn btn-outline-primary" type="submit">Search</button>
+        </form>
+    </div>
+</div>
+
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="container" style="overflow-y: auto; height: 600px; background: #CEECF5; padding: 20px; border-radius: 5px;">
+                <form class="d-flex" action="/books/add" method="POST">  <!-- Update action to your view -->
+                    {% csrf_token %}
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td style="text-align: left; vertical-align: middle;">Title:</td>
+                                <td><input type="text" class="form-control" name="title" required></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left; vertical-align: middle;">Author:</td>
+                                <td><input type="text" class="form-control" name="author" required></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left; vertical-align: middle;">Available Copies:</td>
+                                <td><input type="number" class="form-control" name="available_copies" required></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left; vertical-align: middle;">Publication Date:</td>
+                                <td><input type="date" class="form-control" name="publication_date" required></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: left; vertical-align: middle;">ISBN:</td>
+                                <td><input type="text" class="form-control" name="isbn" required></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="text-align: center;">
+                                    <button class="btn btn-primary" type="submit">Save</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="container" style="overflow-y: auto; height: 300px; margin-top: 10px; padding: 20px; background: #f8f9fa; border-radius: 5px;">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Book Id</th>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Available Copies</th>
+                            <th>Publication Date</th>
+                            <th>ISBN</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            {% for book in books %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ book.title }}</td>
+                                <td>{{ book.author }}</td>
+                                <td>{{ book.available_copies }}</td>
+                                <td>{{ book.publication_date }}</td>
+                                <td>{{ book.isbn }}</td>
+                                <td> <form action="{% url 'delete_book' book.id %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm"
+                        onclick="return confirm('Are you sure you want to delete this book?');">
+                        Delete
+                    </button>
+                </form>
+                            </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
