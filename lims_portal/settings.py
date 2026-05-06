@@ -81,7 +81,7 @@ DATABASES = {
             'NAME': BASE_DIR / 'second_db.sqlite3',
         }
 }
-DATABASE_ROUTERS = ['lims_app.routers.ReaderRouter']
+
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
