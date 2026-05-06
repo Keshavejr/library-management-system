@@ -24,7 +24,7 @@ import os
 SECRET_KEY = os.environ.get('SECRET_KEY', 'fallback-secret-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']  # Add your allowed hosts here, e.g., ['localhost', '127.0.0.1']
 
@@ -76,10 +76,10 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     },
-    'second_db': {  # This is the new database entry
-        'ENGINE': 'django.db.backends.sqlite3',  # or your database engine
-        'NAME': BASE_DIR / "second_db.sqlite3",  # Path to your second database
-    },
+    'second_db': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'second_db.sqlite3',
+        }
 }
 DATABASE_ROUTERS = ['lims_app.routers.ReaderRouter']
 # Password validation

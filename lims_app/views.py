@@ -25,21 +25,28 @@ def save_student(request):
     return render(request, "welcome.html", context={'student_name': student_name})
 
 def readers_tab(request):
+    # 🔴 HANDLE POST
     if request.method == 'POST':
-        reader_name = request.POST.get('reader_name')
-        reader_contact = request.POST.get('reader_contact')
-        reference_id = request.POST.get('reference_id')  # ✅ FIXED
+        reader_name = request.POST.get('reader_name', '')
+        reader_contact = request.POST.get('reader_contact', '')
+        reference_id = request.POST.get('reference_id', '')
+        reader_address = request.POST.get('reader_address', '')
+
+        if not reference_id:
+            return HttpResponse("Reference ID is required")
 
         Reader.objects.create(
             reader_name=reader_name,
             reader_contact=reader_contact,
             reference_id=reference_id,
-            reader_address=request.POST.get('reader_address', '')
+            reader_address=reader_address
         )
 
         return redirect('readers_tab')
 
+    # 🟢 HANDLE GET (ALWAYS RETURNS RESPONSE)
     query = request.GET.get('query', '')
+
     if query:
         readers = Reader.objects.filter(reader_name__icontains=query)
     else:

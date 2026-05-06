@@ -15,6 +15,6 @@ class ReaderRouter:
 
     def allow_migrate(self, db, app_label, model_name=None, **hints):
         # Allow migrations for the Reader model to the second_db
-        if app_label == 'lims_portal':  # Ensure this matches your app name
+        if app_label == 'lims_app':  # Ensure this matches your app name
             return db == 'second_db'
         return None
