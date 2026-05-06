@@ -1,0 +1,1 @@
+web: gunicorn lims_portal.wsgi
