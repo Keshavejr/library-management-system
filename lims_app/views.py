@@ -11,7 +11,11 @@ def home(request):
     return render(request, "home.html", context={"current_tab": "home"})
 
 def readers(request):
-    return render(request, "readers.html", context={"current_tab": "readers"})
+    readers = Reader.objects.all()
+    return render(request, "readers.html", {
+        "current_tab": "readers",
+        "readers": readers
+    })
 
 def shopping(request):
     return HttpResponse("Welcome to shopping")
@@ -25,7 +29,11 @@ def readers_tab(request):
         reader_name = request.POST.get('reader_name')
         reader_contact = request.POST.get('reader_contact')
         reader_ref_id = request.POST.get('reader_ref_id')
-        new_reader = Reader(name=reader_name, contact=reader_contact, reference_id=reader_ref_id)
+        new_reader = Reader(
+            reader_name=reader_name,
+            reader_contact=reader_contact,
+            reference_id=reader_ref_id
+        )
         new_reader.save()
         return redirect('readers_tab')
 
@@ -43,7 +51,7 @@ def readers_tab(request):
 
 def save_reader(request):
             reader_item = Reader(
-                reference_id=request.POST.get('reader_ref_id', ''),
+                reference_id=request.POST.get('reference_id', ''),
                 reader_name=request.POST.get('reader_name', ''),
                 reader_contact=request.POST.get('reader_contact', ''),
                 reader_address=request.POST.get('reader_address', ''),
