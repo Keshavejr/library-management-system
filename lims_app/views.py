@@ -28,13 +28,15 @@ def readers_tab(request):
     if request.method == 'POST':
         reader_name = request.POST.get('reader_name')
         reader_contact = request.POST.get('reader_contact')
-        reader_ref_id = request.POST.get('reader_ref_id')
-        new_reader = Reader(
+        reference_id = request.POST.get('reference_id')  # ✅ FIXED
+
+        Reader.objects.create(
             reader_name=reader_name,
             reader_contact=reader_contact,
-            reference_id=reader_ref_id
+            reference_id=reference_id,
+            reader_address=request.POST.get('reader_address', '')
         )
-        new_reader.save()
+
         return redirect('readers_tab')
 
     query = request.GET.get('query', '')
@@ -43,7 +45,7 @@ def readers_tab(request):
     else:
         readers = Reader.objects.all()
 
-    return render(request, "readers.html", context={
+    return render(request, "readers.html", {
         "current_tab": "readers",
         "readers": readers,
         "query": query,

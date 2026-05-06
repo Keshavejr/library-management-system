@@ -21,7 +21,7 @@
       <div class="card shadow-sm p-3 h-100">
         <h5 class="mb-3">➕ Add Reader</h5>
 
-        <form action="/readers/add" method="POST">
+        <form action="{% url 'readers_tab' %}" method="POST">
           {% csrf_token %}
 
           <div class="mb-2">
